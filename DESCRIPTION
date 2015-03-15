@@ -17,3 +17,4 @@ Imports:
     mvoutlier,
     robustbase
 License: GPL (>= 2)
+LazyData: true
