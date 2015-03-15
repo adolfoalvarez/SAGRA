@@ -1,9 +1,19 @@
 Package: SAGRA
 Type: Package
-Title: What the package does (short line)
-Version: 1.0
-Date: 2015-03-15
-Author: Who wrote it
-Maintainer: Who to complain to <yourfault@somewhere.net>
-Description: More about what it does (maybe more than one line)
-License: What license is it under?
+Title: Splitting And Group Recombining Algorithm
+Version: 0.5
+Date: 2015-03-13
+Authors@R: person("Adolfo", "Alvarez", email = "adolfo.alvarez@analyx.com",
+                 role = c("aut", "cre"))
+Maintainer: Adolfo Alvarez <adolfo.alvarez@analyx.com>
+Description: This package implements the SAGRA (Splitting And Group Recombining Algorithm),
+    a Cluster Analysis algorithm described in Alvarez and Peña (2014).
+    SAGRA is based on a "divide and conquest": First it divides the data in
+    small homogeneous groups and later recombine them using Bayes Factors.
+Imports:
+    corpcor,
+    geometry,
+    HDMD,
+    mvoutlier,
+    robustbase
+License: GPL (>= 2)
