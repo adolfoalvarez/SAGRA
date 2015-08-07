@@ -92,8 +92,9 @@ uni.plot <- function (x, symb = FALSE, quan = 1/2, alpha = 0.025, ...)
   #if (ncol(x) > 10) 
   #  stop("x should not be more than 10-dimensional")
   rob <- robustbase::covMcd(x, alpha = quan)
-  xarw <- mvoutlier::arw(x, rob$center, rob$cov, alpha = alpha)
-  dist <- mahalanobis(x, center = rob$center, cov = rob$cov)
+  # xarw <- mvoutlier::arw(x, rob$center, rob$cov, alpha = alpha) #Sometimes cov is singular
+  xarw <- mvoutlier::arw(x, rob$center, corpcor::make.positive.definite(rob$cov), alpha = alpha)
+  dist <- mahalanobis(x, center = rob$center, cov = corpcor::make.positive.definite(rob$cov))
   sx <- matrix(NA, nrow = nrow(x), ncol = ncol(x))
   o <- (sqrt(dist) > min(sqrt(xarw$cn), sqrt(qchisq(0.975, 
                                                     dim(x)[2]))))

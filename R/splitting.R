@@ -17,9 +17,9 @@ functionSAR <- function(datos,minsize=ncol(datos)+log(nrow(datos)-ncol(datos)), 
   discriminadores <- Ed$discriminadores # Vector with the convex hull members
   x <- max.col(d, ties.method="last") # what member of convex hull maximizes distance
   discriminadores <- discriminadores[sort(unique(x))] # Discriminators are subset of convex hull
-  if(p>=5){ #if dimension is bigger than 5, we need to use r-discriminators. (See Peña and Tiao, 2003)
-    discriminadores <- as.numeric(names(table(x)[table(x)>r]))  
-  }
+#   if(p>=5){ #if dimension is bigger than 5, we need to use r-discriminators. (See Peña and Tiao, 2003)
+#     discriminadores <- as.numeric(names(table(x)[table(x)>r]))  
+#   }
   x <- factor(x) #We treat them as factor
   levels(x) <- 1:length(levels(x)) #And we re order the levels
   data <- data.frame(datos,x)
@@ -86,7 +86,8 @@ Effi_d=function(data){
   UNO <- rep(1,n) # vector of ones
   P <- diag(n)-(UNO%*%t(UNO))/n 
   Xc <- P%*%X
-  S <- cov(X)
+  # S <- cov(X) # Some times in small groups we can have constant variables, or LD.
+  S <- corpcor::make.positive.definite(cov(X))
   E <- eigen(S)
   Sraiz <- E$vectors%*%diag(sqrt(E$values))
   Sraiz2 <- Sraiz%*%t(E$vectors)
