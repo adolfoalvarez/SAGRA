@@ -16,7 +16,7 @@ joining  <-  function(data) {
       grupos <- data
       break}
     i <- i+1
-    print(i)
+    # print(i)
     data <- ordering(data)
     #x11()
     data[,p] <- as.numeric(data[,p])
@@ -113,7 +113,7 @@ lastcombining <- function(data,resultados){
   rrr <- rrr[-minrow,]
   
   while (nrow(newdata)>0){
-    print(nrow(newdata))
+    # print(nrow(newdata))
     listamedias[[mincol]] <- colMeans(resultados[resultados[p+1]==mincol,-(p+1)])
     listavarianzas[[mincol]] <- cov(resultados[resultados[p+1]==mincol,-(p+1)])
     rrr[,mincol] <- mahalanobis(newdata,

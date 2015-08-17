@@ -16,7 +16,7 @@ BIC_cluster <- function(data){
   param <- 0
   
   for (i in 1:meti){
-    print(i)
+    # print(i)
     Rr <- chol(corpcor::make.positive.definite(var(X[index==i,])))
     Xz <- X-matrix(rep(colMeans(X[index==i,]),nrow(X)),ncol=p,byrow=T)
     E <- t(solve(t(Rr))%*%t(Xz))
