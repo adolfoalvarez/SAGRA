@@ -99,11 +99,11 @@ Effi_d=function(data){
     discriminadores <- unique(as.vector(k)) #
     discriminadores <- sort(discriminadores) #
   } else {
-    # discriminadores <- 1:nrow(data) #So, for big dimensions we just consider all data as possible discriminators
+    discriminadores <- 1:nrow(data) #So, for big dimensions we just consider all data as possible discriminators
     #Aquí va a estar el cambio. Como soy gilipollas y no tengo tiempo de calcular la distancia de mahalanobis fraccional,
     #lo que voy a hacer es definir el nuevo "convex hull" basado en las distancias fraccionales por pares
     #profit ! Discrimina mucho mejor que considerarlos a todos
-    discriminadores <- convex_hd(Y)
+    # discriminadores <- convex_hd(Y)
   }
   Dn <- Y%*%t(Y[discriminadores,])
   Dn <- Dn+(1/n)
@@ -116,14 +116,14 @@ Effi_d=function(data){
 }
 
 
-convex_hd <- function(Y){
+convex_hd <- function(Y, p2=0.1){
   #Given a HD matrix calculate the semi convex hull
   #The semi convex hull is the set of all elements
   #Whose fractional distance is bigger to some point in the data
   #It depends on the pairwise.diffs function below
   a <- pairwise.diffs(t(Y))
   a2 <- abs(a)
-  a3 <- (colSums(a2^p))^(1/p)
+  a3 <- (colSums(a2^p2))^(1/p2)
   m2 <- matrix(0, nrow=nrow(Y), ncol=nrow(Y))
   m2[lower.tri(m2)] <- a3
   m3 <- m2+t(m2)
