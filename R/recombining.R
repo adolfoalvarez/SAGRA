@@ -111,8 +111,13 @@ lastcombining <- function(data,resultados){
   resultados <- rbind(resultados,obs)
   newdata <- newdata[-minrow,]
   rrr <- rrr[-minrow,]
-  
+  i <- nrow(resultados)
   while (nrow(newdata)>0){
+<<<<<<< HEAD
+=======
+    # while (i>0){
+    # print(max(as.numeric(rownames(resultados))))
+>>>>>>> a8142a19a2eabdde8fad73e7209991335b898c6f
     # print(nrow(newdata))
     listamedias[[mincol]] <- colMeans(resultados[resultados[p+1]==mincol,-(p+1)])
     listavarianzas[[mincol]] <- cov(resultados[resultados[p+1]==mincol,-(p+1)])
@@ -126,9 +131,12 @@ lastcombining <- function(data,resultados){
     mincol <- themin[1,2]
     obs <- newdata[minrow,]
     obs$grupo_ord2 <- mincol
-    resultados <- rbind(resultados,obs)
+    # resultados <- rbind(resultados,obs) #rbind causes problems with rownames.
+    #I know this is not efficient. We need to preallocate, or using dplyr (without losing rownames!)
+    resultados[i+1,] <- obs
     newdata <- newdata[-minrow,]
     rrr <- rrr[-minrow,]    
+    i <- i+1
   }
   return(resultados)
 }
