@@ -113,11 +113,8 @@ lastcombining <- function(data,resultados){
   rrr <- rrr[-minrow,]
   i <- nrow(resultados)
   while (nrow(newdata)>0){
-<<<<<<< HEAD
-=======
     # while (i>0){
     # print(max(as.numeric(rownames(resultados))))
->>>>>>> a8142a19a2eabdde8fad73e7209991335b898c6f
     # print(nrow(newdata))
     listamedias[[mincol]] <- colMeans(resultados[resultados[p+1]==mincol,-(p+1)])
     listavarianzas[[mincol]] <- cov(resultados[resultados[p+1]==mincol,-(p+1)])
