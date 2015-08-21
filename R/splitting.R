@@ -99,11 +99,11 @@ Effi_d=function(data){
     discriminadores <- unique(as.vector(k)) #
     discriminadores <- sort(discriminadores) #
   } else {
-    # discriminadores <- 1:nrow(data) #So, for big dimensions we just consider all data as possible discriminators
+    discriminadores <- 1:nrow(data) #So, for big dimensions we just consider all data as possible discriminators
     #Aquí va a estar el cambio. Como soy gilipollas y no tengo tiempo de calcular la distancia de mahalanobis fraccional,
     #lo que voy a hacer es definir el nuevo "convex hull" basado en las distancias fraccionales por pares
     #profit ! Discrimina mucho mejor que considerarlos a todos
-    discriminadores <- convex_hd(Y)
+    # discriminadores <- convex_hd(Y)
   }
   Dn <- Y%*%t(Y[discriminadores,])
   Dn <- Dn+(1/n)
@@ -116,46 +116,46 @@ Effi_d=function(data){
 }
 
 
-convex_hd <- function(Y){
-  #Given a HD matrix calculate the semi convex hull
-  #The semi convex hull is the set of all elements
-  #Whose fractional distance is bigger to some point in the data
-  #It depends on the pairwise.diffs function below
-  a <- pairwise.diffs(t(Y))
-  a2 <- abs(a)
-  a3 <- (colSums(a2^p))^(1/p)
-  m2 <- matrix(0, nrow=nrow(Y), ncol=nrow(Y))
-  m2[lower.tri(m2)] <- a3
-  m3 <- m2+t(m2)
-  # euc.dist <- function(x1, x2, p) (sum(abs(x1 - x2) ^ p))^(1/p)
-  
-  x <- max.col(m3, ties.method="last")
-  x <- sort(unique(x))
-  return(x)
-}
-
-
-pairwise.diffs <- function(x)
-{
-  #This function is from Marc Schwartz in the r-help list
-  #https://stat.ethz.ch/pipermail/r-help/2004-August/055324.html
-  stopifnot(is.matrix(x))
-  
-  # create column combination pairs
-  prs <- cbind(rep(1:ncol(x), each = ncol(x)), 1:ncol(x))
-  col.diffs <- prs[prs[, 1] < prs[, 2], , drop = FALSE]
-  
-  # do pairwise differences 
-  result <- x[, col.diffs[, 1]] - x[, col.diffs[, 2], drop = FALSE]
-  
-  # set colnames
-  if(is.null(colnames(x)))
-    colnames(x) <- 1:ncol(x)
-  
-  colnames(result) <- paste(colnames(x)[col.diffs[, 1]], ".vs.",
-                            colnames(x)[col.diffs[, 2]], sep = "")
-  result
-}
+# convex_hd <- function(Y, p2=0.1){
+#   #Given a HD matrix calculate the semi convex hull
+#   #The semi convex hull is the set of all elements
+#   #Whose fractional distance is bigger to some point in the data
+#   #It depends on the pairwise.diffs function below
+#   a <- pairwise.diffs(t(Y))
+#   a2 <- abs(a)
+#   a3 <- (colSums(a2^p2))^(1/p2)
+#   m2 <- matrix(0, nrow=nrow(Y), ncol=nrow(Y))
+#   m2[lower.tri(m2)] <- a3
+#   m3 <- m2+t(m2)
+#   # euc.dist <- function(x1, x2, p) (sum(abs(x1 - x2) ^ p))^(1/p)
+#   
+#   x <- max.col(m3, ties.method="last")
+#   x <- sort(unique(x))
+#   return(x)
+# }
+# 
+# 
+# pairwise.diffs <- function(x)
+# {
+#   #This function is from Marc Schwartz in the r-help list
+#   #https://stat.ethz.ch/pipermail/r-help/2004-August/055324.html
+#   stopifnot(is.matrix(x))
+#   
+#   # create column combination pairs
+#   prs <- cbind(rep(1:ncol(x), each = ncol(x)), 1:ncol(x))
+#   col.diffs <- prs[prs[, 1] < prs[, 2], , drop = FALSE]
+#   
+#   # do pairwise differences 
+#   result <- x[, col.diffs[, 1]] - x[, col.diffs[, 2], drop = FALSE]
+#   
+#   # set colnames
+#   if(is.null(colnames(x)))
+#     colnames(x) <- 1:ncol(x)
+#   
+#   colnames(result) <- paste(colnames(x)[col.diffs[, 1]], ".vs.",
+#                             colnames(x)[col.diffs[, 2]], sep = "")
+#   result
+# }
 
 
 # elimino
