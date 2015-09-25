@@ -115,8 +115,6 @@ Effi_d=function(data){
   return(list(d2=d2,discriminadores=discriminadores)) #
 }
 
-
-<<<<<<< HEAD
 # convex_hd <- function(Y, p2=0.1){
 #   #Given a HD matrix calculate the semi convex hull
 #   #The semi convex hull is the set of all elements
@@ -157,49 +155,6 @@ Effi_d=function(data){
 #                             colnames(x)[col.diffs[, 2]], sep = "")
 #   result
 # }
-=======
-convex_hd <- function(Y, p2=0.1){
-  #Given a HD matrix calculate the semi convex hull
-  #The semi convex hull is the set of all elements
-  #Whose fractional distance is bigger to some point in the data
-  #It depends on the pairwise.diffs function below
-  a <- pairwise.diffs(t(Y))
-  a2 <- abs(a)
-  a3 <- (colSums(a2^p2))^(1/p2)
-  m2 <- matrix(0, nrow=nrow(Y), ncol=nrow(Y))
-  m2[lower.tri(m2)] <- a3
-  m3 <- m2+t(m2)
-  # euc.dist <- function(x1, x2, p) (sum(abs(x1 - x2) ^ p))^(1/p)
-  
-  x <- max.col(m3, ties.method="last")
-  x <- sort(unique(x))
-  return(x)
-}
-
-
-pairwise.diffs <- function(x)
-{
-  #This function is from Marc Schwartz in the r-help list
-  #https://stat.ethz.ch/pipermail/r-help/2004-August/055324.html
-  stopifnot(is.matrix(x))
-  
-  # create column combination pairs
-  prs <- cbind(rep(1:ncol(x), each = ncol(x)), 1:ncol(x))
-  col.diffs <- prs[prs[, 1] < prs[, 2], , drop = FALSE]
-  
-  # do pairwise differences 
-  result <- x[, col.diffs[, 1]] - x[, col.diffs[, 2], drop = FALSE]
-  
-  # set colnames
-  if(is.null(colnames(x)))
-    colnames(x) <- 1:ncol(x)
-  
-  colnames(result) <- paste(colnames(x)[col.diffs[, 1]], ".vs.",
-                            colnames(x)[col.diffs[, 2]], sep = "")
-  result
-}
->>>>>>> 6c6a35454257aa5e31eb0e86b6c1116ba966dcf6
-
 
 # elimino
 #
