@@ -160,7 +160,6 @@ Effi_d=function(data){
 #
 # Function to remove groups with sizes < minsize
 elimino <- function(data,minsize){
-  #Y si cambio eso
   guardo <- data
   p <- dim(data)[2]-1
   a <- as.matrix(table(data[,p+1]))
