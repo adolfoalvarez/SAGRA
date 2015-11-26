@@ -71,7 +71,7 @@ sagra  <- function(data,minsize=ncol(data)+log(nrow(data)-ncol(data))){
   datos <- do.call("rbind", grupos_candidatos) 
   datos <- foutliers(datos)
   #Aqui esta el problema
-  #Si hay grupos menores al tamaño minimo hay que cepillarselos directamente
+  #Si hay grupos menores al tamaño minimo hay que eliminarlos directamente
   datos <- datos[!datos[,p+1]%in%as.numeric(names(table(datos[,p+1]))[table(datos[,p+1])<minsize]),]
   datos <- ordering(datos)
   datos <- joining2(datos)[[1]]
