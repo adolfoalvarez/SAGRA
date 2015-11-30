@@ -100,7 +100,7 @@ Effi_d=function(data){
     discriminadores <- sort(discriminadores) #
   } else {
     discriminadores <- 1:nrow(data) #So, for big dimensions we just consider all data as possible discriminators
-    #Aquí va a estar el cambio. Como soy gilipollas y no tengo tiempo de calcular la distancia de mahalanobis fraccional,
+    #Aquí va a estar el cambio. 
     #lo que voy a hacer es definir el nuevo "convex hull" basado en las distancias fraccionales por pares
     #profit ! Discrimina mucho mejor que considerarlos a todos
     # discriminadores <- convex_hd(Y)
